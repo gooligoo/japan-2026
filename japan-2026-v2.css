@@ -985,3 +985,8 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible,s
 .lock-he, html[lang="he"] .lock-en {display:none}
 html[lang="he"] .lock-he {display:inline}
 @media(max-width:600px){#accessLock {min-width:44px;min-height:44px;padding:8px}#accessLock span:first-child{display:none}}
+@media(max-width:600px){
+  .header-main{display:grid;grid-template-columns:48px minmax(0,1fr);gap:10px 14px}
+  .header-actions{grid-column:1 / -1;margin-inline-start:0;justify-content:flex-end}
+  .brand-copy h1{white-space:nowrap}
+}

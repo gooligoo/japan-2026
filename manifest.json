@@ -1,0 +1,31 @@
+{
+  "name": "Japan 2026 · Horn Family Trip",
+  "short_name": "Japan 2026",
+  "description": "Private bilingual trip control center for Japan, September–October 2026.",
+  "start_url": "./japan-2026-app-v2.html",
+  "display": "standalone",
+  "background_color": "#f4f0e8",
+  "theme_color": "#17264b",
+  "icons": [
+    {
+      "src": "assets/app-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/app-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "id": "./japan-2026-app-v2.html",
+  "scope": "./"
+}

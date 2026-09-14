@@ -990,3 +990,58 @@ html[lang="he"] .lock-he {display:inline}
   .header-actions{grid-column:1 / -1;margin-inline-start:0;justify-content:flex-end}
   .brand-copy h1{white-space:nowrap}
 }
+
+/* Neon Japan accent layer — additive only, never replaces the audited base palette */
+:root {
+  --neon-pink: #ff2f8f;
+  --neon-cyan: #21e6ff;
+  --neon-glow: 0 0 0 1px rgba(255,47,143,.35), 0 0 18px rgba(33,230,255,.28);
+}
+
+.sound-mode-switch { display: flex; gap: 8px; margin-top: 12px; }
+.mode-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border: 1px solid var(--line); border-radius: 999px;
+  background: var(--paper); color: var(--ink); font: 700 12px/1 inherit; cursor: pointer;
+  transition: transform .15s ease, box-shadow .15s ease, background .15s ease, color .15s ease;
+}
+.mode-pill:hover { transform: translateY(-1px); }
+.mode-pill[aria-pressed="true"] {
+  color: white; background: linear-gradient(120deg, var(--neon-pink), var(--indigo-2) 85%);
+  border-color: transparent; box-shadow: var(--neon-glow);
+}
+
+.extras-counter { margin: 4px 0 14px; font: 700 12px/1.4 inherit; color: var(--neon-pink); letter-spacing: .02em; }
+
+.card-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.add-toggle {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 13px; border: 1px dashed var(--neon-pink); border-radius: 999px;
+  background: transparent; color: var(--neon-pink); font: 700 11px/1 inherit; cursor: pointer;
+  transition: transform .15s ease, background .15s ease, color .15s ease, border-style .15s ease;
+}
+.add-toggle:hover { transform: translateY(-1px); }
+.add-toggle.is-added {
+  border-style: solid; color: white;
+  background: linear-gradient(120deg, var(--moss), var(--river) 90%);
+}
+.side-quest-card.is-added { box-shadow: inset 3px 0 0 var(--moss); background: rgba(0,141,112,.04); }
+
+.secret-flash {
+  position: fixed; inset: 0; z-index: 900; display: grid; place-items: center;
+  pointer-events: none; opacity: 0; background: radial-gradient(circle, rgba(255,47,143,.32), rgba(33,230,255,.18) 55%, transparent 78%);
+}
+.secret-flash span {
+  font: 800 min(30vw,220px)/1 "Yu Mincho", serif; color: white;
+  text-shadow: 0 0 30px var(--neon-pink), 0 0 60px var(--neon-cyan);
+  transform: scale(.6); opacity: 0;
+}
+.secret-flash.is-active { opacity: 1; animation: secretFlashFade .9s ease forwards; }
+.secret-flash.is-active span { animation: secretGlyphPop .9s cubic-bezier(.2,1.4,.4,1) forwards; }
+@keyframes secretFlashFade { 0% { opacity: 0; } 18% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes secretGlyphPop { 0% { transform: scale(.5); opacity: 0; } 25% { transform: scale(1.08); opacity: 1; } 60% { transform: scale(1); opacity: 1; } 100% { transform: scale(1.15); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .secret-flash.is-active { animation: none; opacity: .9; transition: opacity .25s ease; }
+  .secret-flash.is-active span { animation: none; transform: scale(1); opacity: 1; }
+  .mode-pill, .add-toggle { transition: none; }
+}

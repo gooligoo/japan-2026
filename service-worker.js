@@ -1,9 +1,9 @@
-const CACHE = 'japan-2026-v2.17.4';
+const CACHE = 'japan-2026-v2.18.0';
 const PREFIX = 'japan-2026-v';
 const APP_SHELL = [
  './', './index.html',
- './assets/family-icon.jpeg?v=2.17.4',
- './japan-2026-app-v2.html', './japan-2026-v2.css?v=2.17.4', './japan-2026-v2.js?v=2.17.4', './access-gate.js?v=2.17.4', './manifest.json',
+ './assets/family-icon.jpeg?v=2.18.0',
+ './japan-2026-app-v2.html', './japan-2026-v2.css?v=2.18.0', './japan-2026-v2.js?v=2.18.0', './access-gate.js?v=2.18.0', './manifest.json',
  './assets/app-icon.svg', './assets/app-icon-192.png', './assets/app-icon-512.png', './assets/apple-touch-icon.png',
  './assets/jogasaki-coast.webp', './assets/sagano-train.webp', './assets/kawagoe-festival.webp',
  './assets/japan-secrets-banner.webp', './assets/tanuki-omikuji.webp', './assets/japan-pop-hero-v3.webp'

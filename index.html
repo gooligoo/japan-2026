@@ -7,8 +7,8 @@
   <meta name="description" content="Private bilingual control center for the Horn family Japan trip, 29 September to 20 October 2026.">
   <title>Japan 2026 · Horn Family Trip Control Center</title>
   <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="assets/family-icon.jpeg?v=2.17.4" type="image/jpeg">
-  <link rel="stylesheet" href="japan-2026-v2.css?v=2.17.4">
+  <link rel="icon" href="assets/family-icon.jpeg?v=2.18.0" type="image/jpeg">
+  <link rel="stylesheet" href="japan-2026-v2.css?v=2.18.0">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 </head>
 <body>
@@ -55,6 +55,10 @@
         <p class="eyebrow" data-i18n="soundEyebrow">QUIET BY DEFAULT</p>
         <h2 id="soundHeading" data-i18n="soundHeading">Tokyo rain + distant chimes</h2>
         <p data-i18n="soundNote">Starts only when you choose. Volume is remembered on this device.</p>
+        <div class="sound-mode-switch" id="soundModeSwitch" role="group" aria-label="Soundscape mood">
+          <button class="mode-pill" type="button" data-sound-mode="zen" aria-pressed="true"><span aria-hidden="true">琴</span> <span data-i18n="soundModeZen">Zen koto</span></button>
+          <button class="mode-pill" type="button" data-sound-mode="trap" aria-pressed="false"><span aria-hidden="true">夜</span> <span data-i18n="soundModeTrap">Night trap</span></button>
+        </div>
       </div>
       <div class="sound-controls">
         <button class="primary-button compact" id="audioPlay" type="button"><span aria-hidden="true">▶</span> <span data-i18n="startSound">Start</span></button>
@@ -63,6 +67,7 @@
         <button class="ghost-button compact" id="stationChime" type="button" data-i18n="stationChime">Station chime</button>
       </div>
     </section>
+    <div class="secret-flash" id="secretFlash" aria-hidden="true"><span id="secretFlashGlyph">秘</span></div>
 
     <div class="status-strip" id="statusStrip" aria-live="polite"></div>
   </header>
@@ -107,6 +112,7 @@
               <p class="eyebrow" data-i18n="discoveryEyebrow">🇯🇵 OPTIONAL DETOURS · ZERO HOMEWORK</p>
               <h3 id="discoveryTitle" data-i18n="discoveryTitle">Japan side quests</h3>
               <p data-i18n="discoveryIntro">Design, temples, tiny prizes, and one suspicious stationmaster. Add only what fits the day.</p>
+              <p class="extras-counter" id="extrasCounter" aria-live="polite"></p>
               <button class="primary-button secret-cta" id="secretsHeroButton" type="button"><span aria-hidden="true">秘</span> <span data-i18n="openSecrets">Open 7 obvious secrets</span></button>
             </div>
           </div>
@@ -228,6 +234,6 @@
   <div class="kaiju" id="kaiju" aria-hidden="true">ゴ</div>
   <div class="samurai-mission" id="samuraiMission" role="status" aria-live="polite" aria-hidden="true"><span aria-hidden="true">侍</span><strong data-i18n="samuraiMission">SAMURAI FOCUS · Protect the itinerary. Defeat one checklist item.</strong></div>
   </div>
-  <script src="access-gate.js?v=2.17.4" defer></script>
+  <script src="access-gate.js?v=2.18.0" defer></script>
 </body>
 </html>

@@ -26,7 +26,9 @@ const defaultState = {
   volume: 0.28,
   stamps: {},
   discoveries: {},
-  retro: false
+  retro: false,
+  soundMode: "zen",
+  addedExtras: {}
 };
 
 let state;
@@ -67,6 +69,8 @@ const T = {
   soundEyebrow: B("QUIET BY DEFAULT", "שקט כברירת מחדל"),
   soundHeading: B("Koto fragments · bamboo breath · Tokyo rain", "רסיסי קוטו · נשימת במבוק · גשם טוקיו"),
   soundNote: B("Starts only when you choose. Volume is remembered on this device.", "מתחיל רק בלחיצה שלך. עוצמת הקול נשמרת במכשיר הזה."),
+  soundModeZen: B("Zen koto", "קוטו זן"),
+  soundModeTrap: B("Night trap", "טראפ לילי"),
   startSound: B("Start", "הפעלה"),
   stopSound: B("Stop", "עצירה"),
   volume: B("Volume", "עוצמה"),
@@ -884,7 +888,7 @@ const actionChecklist = [
     id:"enoshima-aquarium", phase:"before", icon:"🐠", kind:B("WEATHER CHOICE","בחירת מזג אוויר"),
     title:B("Choose island or New Enoshima Aquarium","לבחור אי או אקווריום אנושימה החדש"), due:B("Evening of 8 Oct · visit 9 Oct","בערב 8 באוקטובר · ביקור 9 באוקטובר"), people:B("All five","כל החמישה"),
     summary:B("Use the aquarium as a replacement for the island circuit when weather or energy is poor—not as an extra stop.","להשתמש באקווריום במקום סיבוב האי כשמזג האוויר או האנרגיה חלשים — לא כתחנה נוספת."),
-    steps:[B("Check the 9 October forecast and everyone’s energy. Clear/calm: choose Enoshima island. Wet, windy, hot, or tired: choose the aquarium in the itinerary.","לבדוק תחזית ל-9 באוקטובר ואת האנרגיה של כולם. בהיר/רגוע: לבחור באי אנושימה. רטוב, סוער, חם או עייפים: לבחור באקווריום במסלול."),B("The current March–November pattern is 09:00–17:00, last entry 16:00; recheck 9 October exceptions. Current admission is adult ¥2,800, high-school student ¥1,800, and elementary/junior-high ¥1,300; bring Geffen’s student ID and let the ticket desk confirm each category.","השעות העונתיות הנוכחיות הן 09:00–17:00 עם כניסה אחרונה ב-16:00. המחיר הנוכחי הוא 2,800¥ למבוגר, 1,800¥ לתלמיד תיכון ו-1,300¥ ליסודי/חטיבה; להביא תעודת תלמיד של גפן ולתת לקופה לאשר כל קטגוריה."),B("No 9 October timed-entry requirement is currently posted. Buy at the ticket desk or an official listed partner, then leave after about 2.5 hours for Hase and the Great Buddha. Check the live show schedule only on the visit day.","כרגע לא פורסמה דרישת כניסה מתוזמנת ל-9 באוקטובר. לקנות בקופה או דרך שותף רשמי שמופיע באתר, ואז לצאת אחרי כ-2.5 שעות להאסה ולבודהה הגדול. לבדוק לוח מופעים חי רק ביום הביקור.")],
+    steps:[B("Check the 9 October forecast and everyone’s energy. Clear/calm: choose Enoshima island. Wet, windy, hot, or tired: choose the aquarium in the itinerary.","לבדוק תחזית ל-9 באוקטובר ואת האנרגיה של כולם. בהיר/רגוע: לבחור באי אנושימה. רטוב, סוער, חם או עייפים: לבחור באקווריום במסלול."),B("The current March–November pattern is 09:00–17:00, last entry 16:00; recheck 9 October exceptions. Current admission is adult ¥2,800, high-school student ¥1,800, and elementary/junior-high ¥1,300; bring Yaara’s student ID and let the ticket desk confirm each category.","השעות העונתיות הנוכחיות הן 09:00–17:00 עם כניסה אחרונה ב-16:00. המחיר הנוכחי הוא 2,800¥ למבוגר, 1,800¥ לתלמיד תיכון ו-1,300¥ ליסודי/חטיבה; להביא תעודת תלמיד של יערה ולתת לקופה לאשר כל קטגוריה."),B("No 9 October timed-entry requirement is currently posted. Buy at the ticket desk or an official listed partner, then leave after about 2.5 hours for Hase and the Great Buddha. Check the live show schedule only on the visit day.","כרגע לא פורסמה דרישת כניסה מתוזמנת ל-9 באוקטובר. לקנות בקופה או דרך שותף רשמי שמופיע באתר, ואז לצאת אחרי כ-2.5 שעות להאסה ולבודהה הגדול. לבדוק לוח מופעים חי רק ביום הביקור.")],
     links:[[B("Official hours, fares & tickets","שעות, מחירים וכרטיסים רשמיים"),"https://www.enosui.com/basicinfo.php"],[B("English aquarium guide","מדריך האקווריום באנגלית"),"https://www.enosui.com/en/"],[B("Aquarium map","מפת האקווריום"),MAP("New Enoshima Aquarium")]]
   },
   {
@@ -919,7 +923,7 @@ const actionChecklist = [
     id:"teamlab-kyoto", phase:"now", icon:"✦", kind:B("TIMED ENTRY","כניסה בשעה"),
     title:B("Buy teamLab Biovortex Kyoto tickets","לקנות כרטיסי teamLab Biovortex Kyoto"), due:B("After the 14 Oct train is fixed","אחרי שרכבת 14 באוקטובר נקבעת"), people:B("All five","כל החמישה"),
     summary:B("This is the preferred teamLab visit; book a timed slot with a generous post-train buffer.","זהו ביקור teamLab המועדף; להזמין שעה עם מרווח נדיב אחרי הרכבת."),
-    steps:[B("Fix the Atami → Kyoto train first, then choose a 14 October entry time that allows for delays, hotel check-in, and the seven-minute walk from Kyoto Station.","קודם לקבוע את רכבת אטאמי ← קיוטו, ואז לבחור שעת כניסה ב-14 באוקטובר שמאפשרת עיכובים, צ׳ק־אין והליכה של שבע דקות מתחנת קיוטו."),B("For the supplied ages: three adult tickets (Gilad, Ayelet, Yaara 20), one age 13–17 (Geffen 17), and one age 4–12 (Erel 12). Recheck birthdays and ages on the visit date.", "לגילים שנמסרו: שלושה כרטיסי מבוגר (גלעד, איילת, יערה 20), אחד לגיל 13–17 (גפן 17) ואחד לגיל 4–12 (אראל 12). לבדוק ימי הולדת וגיל ביום הביקור."),B("Use the official seller. Tickets may sell out; official tickets generally cannot be canceled, although limited date/time changes are supported under the posted rules.","להשתמש במוכר הרשמי. הכרטיסים עלולים להיגמר; בדרך כלל אי אפשר לבטל כרטיסים רשמיים, אך שינויי תאריך/שעה מוגבלים נתמכים לפי הכללים המפורסמים.")],
+    steps:[B("Fix the Atami → Kyoto train first, then choose a 14 October entry time that allows for delays, hotel check-in, and the seven-minute walk from Kyoto Station.","קודם לקבוע את רכבת אטאמי ← קיוטו, ואז לבחור שעת כניסה ב-14 באוקטובר שמאפשרת עיכובים, צ׳ק־אין והליכה של שבע דקות מתחנת קיוטו."),B("For the supplied ages: three adult tickets (Gilad, Ayelet, Geffen 20), one age 13–17 (Yaara 17), and one age 4–12 (Erel 12). Recheck birthdays and ages on the visit date.", "לגילים שנמסרו: שלושה כרטיסי מבוגר (גלעד, איילת, גפן 20), אחד לגיל 13–17 (יערה 17) ואחד לגיל 4–12 (אראל 12). לבדוק ימי הולדת וגיל ביום הביקור."),B("Use the official seller. Tickets may sell out; official tickets generally cannot be canceled, although limited date/time changes are supported under the posted rules.","להשתמש במוכר הרשמי. הכרטיסים עלולים להיגמר; בדרך כלל אי אפשר לבטל כרטיסים רשמיים, אך שינויי תאריך/שעה מוגבלים נתמכים לפי הכללים המפורסמים.")],
     links:[[B("Buy official tickets","קניית כרטיסים רשמיים"),"https://kyoto.tickets.teamlab.art/"],[B("Visit information","מידע לביקור"),"https://art.team-lab.cn/en/e/kyoto/"]]
   },
   {
@@ -1008,14 +1012,14 @@ const actionChecklist = [
   },
   {
     id:"suica-yaara", phase:"before", icon:"💳", kind:B("IC CARD","כרטיס IC"),
-    title:B("Set up Yaara’s Suica","להגדיר Suica ליערה"), due:B("Before departure or at NRT on 6 Oct","לפני היציאה או בנריטה ב-6 באוקטובר"), people:B("Yaara · age 20","יערה · בת 20"),
+    title:B("Set up Yaara’s Suica","להגדיר Suica ליערה"), due:B("Before departure or at NRT on 6 Oct","לפני היציאה או בנריטה ב-6 באוקטובר"), people:B("Yaara · age 17","יערה · בת 17"),
     summary:B("Give Yaara her own mobile or physical IC card and make sure she can top it up herself.","לתת ליערה כרטיס IC נפרד במובייל או פיזי ולוודא שהיא יכולה לטעון אותו בעצמה."),
     steps:[B("Use Welcome Suica Mobile if her Apple device and own Apple Pay payment card are eligible.","להשתמש ב-Welcome Suica Mobile אם מכשיר Apple וכרטיס Apple Pay על שמה זכאים."),B("Turn on Express Card and test the setup before leaving; retry issuance in Japan if regional restrictions apply.","להפעיל Express Card ולבדוק לפני היציאה; לנסות הנפקה שוב ביפן אם חלות מגבלות אזוריות."),B("Otherwise buy one physical adult Welcome Suica and keep its reference paper.","אחרת לקנות Welcome Suica פיזי למבוגר ולשמור את דף האסמכתה.")],
     links:[[B("Welcome Suica Mobile","Welcome Suica Mobile"),"https://www.jreast.co.jp/en/multi/welcomesuicamobile/"],[B("Physical Welcome Suica","Welcome Suica פיזי"),"https://www.jreast.co.jp/en/multi/welcomesuica/purchase.html"]]
   },
   {
     id:"suica-geffen", phase:"before", icon:"💳", kind:B("IC CARD","כרטיס IC"),
-    title:B("Set up Geffen’s Suica","להגדיר Suica לגפן"), due:B("Before departure or at NRT on 6 Oct","לפני היציאה או בנריטה ב-6 באוקטובר"), people:B("Geffen · age 17","גפן · בת 17"),
+    title:B("Set up Geffen’s Suica","להגדיר Suica לגפן"), due:B("Before departure or at NRT on 6 Oct","לפני היציאה או בנריטה ב-6 באוקטובר"), people:B("Geffen · age 20","גפן · בת 20"),
     summary:B("Mobile is possible only with a compatible Apple device and an eligible payment setup; physical is the simple fallback.","מובייל אפשרי רק עם מכשיר Apple תואם והגדרת תשלום זכאית; כרטיס פיזי הוא החלופה הפשוטה."),
     steps:[B("Check the official compatible-device and Apple Pay requirements before relying on mobile.","לבדוק דרישות מכשיר תואם ו-Apple Pay הרשמיות לפני שמסתמכים על מובייל."),B("If eligible, issue her own Welcome Suica Mobile, enable Express Card, and add a small balance.","אם זכאית, להנפיק לה Welcome Suica Mobile נפרד, להפעיל Express Card ולהוסיף יתרה קטנה."),B("Otherwise buy one physical adult Welcome Suica and keep its reference paper.","אחרת לקנות Welcome Suica פיזי למבוגר ולשמור את דף האסמכתה.")],
     links:[[B("Mobile requirements","דרישות מובייל"),"https://www.jreast.co.jp/en/multi/welcomesuicamobile/install.html"],[B("Physical Welcome Suica","Welcome Suica פיזי"),"https://www.jreast.co.jp/en/multi/welcomesuica/purchase.html"]]
@@ -1198,6 +1202,66 @@ const sideQuests = [
     id:"gacha", icon:"玩", kicker:B("TINY TREASURE","אוצר זעיר"), title:B("Gachapon family draft","דראפט גאצ׳פון משפחתי"),
     text:B("Each person gets one capsule. No swapping until everyone opens theirs; the funniest pull becomes the trip mascot for 24 hours.","כל אחד מקבל קפסולה אחת. אין החלפות עד שכולם פותחים; השליפה המצחיקה ביותר הופכת לקמע הטיול ל־24 שעות."),
     links:[[B("Find Gashapon in Tokyo","מציאת גאצ׳פון בטוקיו"),MAP("Gashapon Department Store Tokyo")]]
+  },
+  {
+    id:"numazu-aquarium", icon:"🐡", kicker:B("IZU DETOUR · ~45–60 MIN FROM ITO","סטייה באיזו · ~45–60 דק׳ מאיטו"), title:B("Numazu Deep Sea Aquarium","אקווריום המצולות של נומאזו"),
+    text:B("Suruga Bay is Japan's deepest bay, and this small aquarium leans all the way into that: coelacanth specimens and genuine deep-sea weirdness rather than a generic tank tour. Fits the open Oct 12–13 Izu window as a rain/energy fallback—confirm the current route from Ito before committing.","מפרץ סורוגה הוא המפרץ העמוק ביותר ביפן, והאקווריום הקטן הזה מתמקד בדיוק בזה: דגימות קלקנת ומוזרויות מצולות אמיתיות במקום סיבוב מכלים גנרי. מתאים לחלון הפתוח ב-12–13 באוקטובר באיזו כגיבוי לגשם/אנרגיה נמוכה — לאשר את המסלול הנוכחי מאיטו לפני התחייבות."),
+    links:[[B("Open map","פתיחת מפה"),MAP("Numazu Deep Sea Aquarium")]]
+  },
+  {
+    id:"izu-panorama-park", icon:"🚡", kicker:B("IZU DETOUR · SAME PENINSULA","סטייה באיזו · אותו חצי־אי"), title:B("Izu Panorama Park ropeway","הרכבל של פארק הפנורמה באיזו"),
+    text:B("A ropeway up Mt Katsuragi with a 360° platform—Suruga Bay, the Izu islands, and Fuji itself on a clear day. Short visit, no hiking required, so it slots next to Mt Ōmuro or the Jōgasaki coast without eating the whole day.","רכבל אל הר קצוראגי עם תצפית 360 מעלות — מפרץ סורוגה, איי איזו והר פוג׳י עצמו ביום בהיר. ביקור קצר בלי טיפוס, כך שהוא משתלב לצד הר אומורו או חוף ג׳וגסאקי בלי לתפוס יום שלם."),
+    links:[[B("Open map","פתיחת מפה"),MAP("Izu Panorama Park")]]
+  },
+  {
+    id:"izu-unconfirmed", icon:"？", kicker:B("IZU IDEA · NEEDS PINNING DOWN","רעיון באיזו · טעון בירור"), title:B("\"Sky Garden\" + an indigo-dyeing spot","\"Sky Garden\" + מקום צביעת אינדיגו"),
+    text:B("Two names came up for the Izu leg—an indigo-dyeing workshop and a \"Sky Garden\"—but neither matched a source confidently enough to write up here without guessing. Worth a direct search before deciding; if they check out, they'd fit the same Oct 12–13 window as the other Izu detours.","שני שמות עלו למקטע איזו — סדנת צביעת אינדיגו ו-\"Sky Garden\" — אך אף אחד מהם לא נמצא במקור מספיק אמין כדי לתאר אותו כאן בלי ניחוש. שווה חיפוש ישיר לפני החלטה; אם הם מתאימים, הם ישתלבו באותו חלון של 12–13 באוקטובר לצד סטיות האיזו האחרות."),
+    links:[[B("Search both names","חיפוש שני השמות"),PHOTOS("Kosoen indigo dyeing Izu Sky Garden")]]
+  },
+  {
+    id:"uji-matcha-quest", icon:"茶", kicker:B("KYOTO DETOUR · ~20 MIN FROM KYOTO STN","סטייה בקיוטו · ~20 דק׳ מתחנת קיוטו"), title:B("Uji matcha pilgrimage","עלייה לרגל למאצ׳ה באוג׳י"),
+    text:B("Uji is matcha's home turf: Byōdō-in (the temple on the ¥10 coin) plus centuries-old tea houses. A clean half-day out of Kyoto—pairs naturally with the Nintendo Museum below since it's the same town.","אוג׳י היא מולדת המאצ׳ה: מקדש בְּיוֹדוֹ־אין (זה שעל מטבע ה-10 ין) לצד בתי תה בני מאות שנים. חצי יום נקי מחוץ לקיוטו — משתלב טבעי עם מוזיאון נינטנדו למטה, כי זו אותה עיר."),
+    links:[[B("Open map","פתיחת מפה"),MAP("Byodo-in Uji")]]
+  },
+  {
+    id:"nintendo-museum", icon:"🎮", kicker:B("KYOTO DETOUR · SAME TOWN AS UJI","סטייה בקיוטו · אותה עיר כמו אוג׳י"), title:B("Nintendo Museum, Uji","מוזיאון נינטנדו, אוג׳י"),
+    text:B("Opened 2024 in a former Nintendo plant in Uji—decades of consoles and controllers, hands-on exhibits. Entry is timed and has sold through a lottery/advance system rather than walk-up; check the current booking method well before 14–18 October if this is a must.","נפתח ב-2024 במפעל נינטנדו לשעבר באוג׳י — עשרות שנות קונסולות ובקרים, תערוכות חווייתיות. הכניסה בשעה קבועה ונמכרת בעבר דרך הגרלה/הזמנה מראש ולא ספונטנית; לבדוק את שיטת ההזמנה הנוכחית הרבה לפני 14–18 באוקטובר אם זה חובה."),
+    links:[[B("Open map","פתיחת מפה"),MAP("Nintendo Museum Uji")]]
+  },
+  {
+    id:"omihachiman", icon:"⛵", kicker:B("KYOTO DETOUR · ~40 MIN FROM KYOTO","סטייה בקיוטו · ~40 דק׳ מקיוטו"), title:B("Ōmihachiman canal town","עיר התעלות אומיהאצ׳ימאן"),
+    text:B("A preserved Lake Biwa merchant town with a willow-lined canal you can ride in a low wooden boat, plus old warehouse streets with almost no tour-bus crowds. A genuinely different texture from central Kyoto if the Fushimi/Kurama days feel temple-heavy.","עיר סוחרים משומרת על אגם ביווה עם תעלה מוצלת בערבות שאפשר לשוט בה בסירת עץ נמוכה, לצד רחובות מחסנים עתיקים כמעט בלי אוטובוסי תיירים. מרקם שונה לגמרי ממרכז קיוטו אם הימים בפושימי/קוראמה מרגישים עתירי מקדשים."),
+    links:[[B("Open map","פתיחת מפה"),MAP("Omihachiman Canal")]]
+  },
+  {
+    id:"sumida-aquarium", icon:"🐧", kicker:B("TOKYO DETOUR · SKYTREE TOWN","סטייה בטוקיו · טאון סקייטרי"), title:B("Sumida Aquarium at Skytree","אקווריום סומידה בסקייטרי"),
+    text:B("Indoor, penguins with a city-view backdrop, inside Tokyo Solamachi at the foot of Skytree. A reliable rain-day swap for any looser Tokyo afternoon.","בפנים, פינגווינים על רקע נוף העיר, בתוך טוקיו סולאמאצ׳י למרגלות הסקייטרי. חלופה אמינה ליום גשום בכל אחר צהריים פנוי בטוקיו."),
+    links:[[B("Open map","פתיחת מפה"),MAP("Sumida Aquarium Tokyo")]]
+  },
+  {
+    id:"mipig-cafe", icon:"🐷", kicker:B("TOKYO DETOUR · BOOK AHEAD","סטייה בטוקיו · להזמין מראש"), title:B("Mipig Cafe (micro-pigs)","Mipig Cafe (חזירי מיני)"),
+    text:B("A cafe where micro-pigs wander the room and climb into laps on request. Genuinely popular with teens, but slots fill online in advance—do not show up unbooked.","בית קפה שבו חזירי מיני משוטטים בחדר ומטפסים על הברכיים לפי בקשה. פופולרי מאוד בקרב בני נוער, אך התורים מתמלאים אונליין מראש — לא להגיע בלי הזמנה."),
+    links:[[B("Open map","פתיחת מפה"),MAP("Mipig Cafe Tokyo")]]
+  },
+  {
+    id:"omoide-yokocho", icon:"🏮", kicker:B("TOKYO DETOUR · EVENING","סטייה בטוקיו · ערב"), title:B("Omoide Yokocho night alley","סמטת הלילה אומוידה יוקוצ׳ו"),
+    text:B("A narrow Shinjuku alley of tiny yakitori stalls glowing under lanterns—more atmosphere than any single dish. A five-minute walk from the Shinjuku days already on the calendar; good for a last-night wander, not a sit-down family dinner.","סמטה צרה בשינג׳וקו עם דוכני יאקיטורי זעירים זוהרים תחת פנסים — יותר אווירה מכל מנה בודדת. חמש דקות הליכה מהימים בשינג׳וקו שכבר בלוח; טוב לשיטוט ליל אחרון, לא לארוחת משפחה מסודרת."),
+    links:[[B("Open map","פתיחת מפה"),MAP("Omoide Yokocho Shinjuku")]]
+  },
+  {
+    id:"unko-museum", icon:"💩", kicker:B("TOKYO DETOUR · CONFIRM IT'S OPEN","סטייה בטוקיו · לאשר שפתוח"), title:B("Unko (Poo) Museum","מוזיאון האנקו (הקקי)"),
+    text:B("Yes, really—a pastel, extremely photogenic pop-up built entirely around a cartoon poop mascot. Kid-appeal is enormous. It's a rotating pop-up rather than a fixed address, so confirm it's currently running in a Tokyo location before planning around it; it would pair naturally with the Odaiba option already in the Oct 10 choice day.","כן, באמת — פופ־אפ פסטלי וצילומי מאוד, בנוי כולו סביב קמע קקי מצויר. אטרקטיביות ילדים עצומה. זהו פופ־אפ נודד ולא כתובת קבועה, אז לאשר שהוא פעיל כרגע במיקום בטוקיו לפני שמתכננים סביבו; הוא ישתלב טבעי עם אפשרות אודייבה שכבר קיימת ביום הבחירה של 10 באוקטובר."),
+    links:[[B("Search current location","חיפוש מיקום נוכחי"),PHOTOS("うんこミュージアム Tokyo")]]
+  },
+  {
+    id:"geffen-galleries", icon:"🎨", kicker:B("TOKYO IDEA · FOR GEFFEN — UNCONFIRMED","רעיון בטוקיו · לגפן — לא מאושר"), title:B("Gallery-hopping for Geffen","סיור גלריות לגפן"),
+    text:B("Geffen's own wishlist is still blank, and \"art galleries\" so far is Dad's guess, not her request. Roppongi (Mori Art Museum, National Art Center) and the small commercial galleries around Ginza are the obvious clusters—but ask her what kind of art first before booking anything.","הרשימה של גפן עדיין ריקה, ו\"גלריות אמנות\" עד כה זה ניחוש של אבא, לא בקשה שלה. רופונגי (מוזיאון מורי, המרכז הלאומי לאמנות) והגלריות המסחריות הקטנות סביב גינזה הן האשכולות הברורים — אבל לשאול אותה איזו אמנות מעניינת אותה לפני שמזמינים משהו."),
+    links:[[B("Open map","פתיחת מפה"),MAP("Roppongi Art Triangle Tokyo")]]
+  },
+  {
+    id:"yaara-cosmetics", icon:"💄", kicker:B("TOKYO IDEA · FOR YAARA — UNCONFIRMED","רעיון בטוקיו · ליערה — לא מאושר"), title:B("Cosmetics run for Yaara","סיבוב קוסמטיקה ליערה"),
+    text:B("Same caveat as Geffen's galleries: this is Dad's guess, not Yaara's ask yet. @cosme Tokyo in Harajuku is the single biggest one-stop option if she confirms she wants this.","אותה הסתייגות כמו הגלריות של גפן: זה ניחוש של אבא, עדיין לא בקשה של יערה. @cosme טוקיו בהרג׳וקו היא האפשרות הגדולה ביותר במקום אחד אם היא מאשרת שהיא רוצה את זה."),
+    links:[[B("Open map","פתיחת מפה"),MAP("@cosme TOKYO Harajuku")]]
   }
 ];
 
@@ -1303,7 +1367,7 @@ function selectedSchedule(day) {
 actionChecklist.push(
   {id:'saphir-room',phase:'japan',icon:'💎',kind:B('OPTIONAL UPGRADE','שדרוג אופציונלי'),title:B('Attempt the six-person Saphir compartment','לנסות להשיג תא ספיר לשישה'),due:B('29 Sep after landing; keep backup until confirmed','29 בספטמבר אחרי הנחיתה; לשמור גיבוי עד אישור'),people:B('Gilad at JR; room for all five','גלעד ב-JR; תא לכל החמישה'),summary:B('A separate task from securing five Green seats.','משימה נפרדת מהבטחת חמישה מושבי גרין.'),steps:[B('At a JR Ticket Office or supported reserved-seat machine, request Saphir 5 on 11 October, Shibuya 12:30 → Ito, one six-person compartment for five. These rooms are not sold online.','במשרד כרטיסים של JR או מכונת מושבים שמורים תומכת, לבקש ספיר 5 ב-11 באוקטובר, שיבויה 12:30 לאיטו, תא לשישה עבור חמישה. תאים אלה אינם נמכרים אונליין.'),B('Have staff confirm availability, total fare and refund/change fees before replacing the five Green tickets. If unavailable, keep those seats; record the unsuccessful attempt as reviewed.','לבקש מהצוות לאשר זמינות, מחיר כולל ועמלות שינוי/החזר לפני החלפת חמשת כרטיסי הגרין. אם אין מקום, לשמור אותם ולסמן שהניסיון נבדק.')],links:[[B('JR room rules','כללי התאים של JR'),'https://www.jreast.co.jp/saphir/en/cars/ticket/']]},
   {id:'nezu',phase:'now',icon:'館',kind:B('TIMED MUSEUM','מוזיאון מתוזמן'),title:B('Reserve Nezu for 2 October','להזמין נזו ל-2 באוקטובר'),due:B('Now, when the 2 Oct calendar is available','עכשיו, כשנפתח לוח 2 באוקטובר'),people:B('Gilad','גלעד'),summary:B('Keep Nezu; Ōta is closed that day.','לשמור על נזו; אוטה סגור ביום זה.'),steps:[B('Use Nezu’s exhibition/online ticket link for an entry around 10:30. Check the current price and cancellation policy.','להשתמש בקישור התערוכה/כרטיסים של נזו לכניסה סביב 10:30. לבדוק מחיר ותנאי ביטול.'),B('If unavailable, retain the Omotesando architecture walk and Cat Street; do not substitute a closed Ōta visit.','אם אין מקום, לשמור על הליכת האדריכלות באומוטסנדו וקאט סטריט; לא להחליף בביקור באוטה הסגור.')],links:[[B('Nezu official exhibition and tickets','נזו: תערוכה וכרטיסים רשמיים'),'https://www.nezu-muse.or.jp/en/exhibitions/current/']]},
-  {id:'gekkeikan',phase:'conditional',icon:'💧',kind:B('MUSEUM','מוזיאון'),title:B('Reserve Gekkeikan if the canal visit includes it','להזמין Gekkeikan אם נכלל בביקור בתעלות'),due:B('After the 16 Oct workshop time is fixed','אחרי קביעת שעת הסדנה ב-16 באוקטובר'),people:B('All five; alcohol tasting only age 20+','כל החמישה; טעימת אלכוהול רק מגיל 20'),summary:B('Advance reservations have priority; walk-ins may be refused when full.','להזמנות מראש יש עדיפות; כניסה במקום עלולה להידחות כשמלא.'),steps:[B('Follow the museum’s reservation link for 16 October after the workshop/transfer. Current hours 09:30–16:30, last entry 16:00. Cashless payment; confirm all five age categories.','להיכנס לקישור ההזמנה במוזיאון ל-16 באוקטובר אחרי הסדנה/המעבר. שעות נוכחיות 09:30–16:30, כניסה אחרונה 16:00. תשלום ללא מזומן; לאשר קטגוריות גיל לכל החמישה.'),B('Geffen and Erel cannot taste alcohol. If sold out or not selected, use the canal walk and Teradaya exterior; mark this task reviewed.','גפן ואראל אינם רשאים לטעום אלכוהול. אם אזל או לא נבחר, לטייל בתעלות ובחזית Teradaya ולסמן שהמשימה נבדקה.')],links:[[B('Gekkeikan museum reservations','הזמנות למוזיאון Gekkeikan'),'https://www.gekkeikan.com/museum/']]},
+  {id:'gekkeikan',phase:'conditional',icon:'💧',kind:B('MUSEUM','מוזיאון'),title:B('Reserve Gekkeikan if the canal visit includes it','להזמין Gekkeikan אם נכלל בביקור בתעלות'),due:B('After the 16 Oct workshop time is fixed','אחרי קביעת שעת הסדנה ב-16 באוקטובר'),people:B('All five; alcohol tasting only age 20+','כל החמישה; טעימת אלכוהול רק מגיל 20'),summary:B('Advance reservations have priority; walk-ins may be refused when full.','להזמנות מראש יש עדיפות; כניסה במקום עלולה להידחות כשמלא.'),steps:[B('Follow the museum’s reservation link for 16 October after the workshop/transfer. Current hours 09:30–16:30, last entry 16:00. Cashless payment; confirm all five age categories.','להיכנס לקישור ההזמנה במוזיאון ל-16 באוקטובר אחרי הסדנה/המעבר. שעות נוכחיות 09:30–16:30, כניסה אחרונה 16:00. תשלום ללא מזומן; לאשר קטגוריות גיל לכל החמישה.'),B('Yaara and Erel cannot taste alcohol. If sold out or not selected, use the canal walk and Teradaya exterior; mark this task reviewed.','יערה ואראל אינם רשאים לטעום אלכוהול. אם אזל או לא נבחר, לטייל בתעלות ובחזית Teradaya ולסמן שהמשימה נבדקה.')],links:[[B('Gekkeikan museum reservations','הזמנות למוזיאון Gekkeikan'),'https://www.gekkeikan.com/museum/']]},
   {id:'emergency',phase:'before',icon:'☎',kind:B('EMERGENCY PLAN','תכנית חירום'),title:B('Save emergency contacts and a family meeting plan','לשמור אנשי קשר ותכנית מפגש לחירום'),due:B('Before each departure; review together on 6 Oct','לפני כל יציאה; לעבור יחד ב-6 באוקטובר'),people:B('All five, with both adults holding copies','כל החמישה, עותקים אצל שני המבוגרים'),summary:B('110 police; 119 ambulance/fire; JNTO 050-3816-2787.','110 משטרה; 119 אמבולנס/כיבוי; JNTO 050-3816-2787.'),steps:[B('Save the 24-hour JNTO visitor hotline, insurer assistance, hotel address in Japanese, passport copies and a trusted home contact offline on both adult phones.','לשמור בשני טלפוני המבוגרים אופליין את מוקד JNTO ל-24 שעות, סיוע הביטוח, כתובת המלון ביפנית, עותקי דרכון ואיש קשר בבית.'),B('Agree a meeting point if separated, especially at Kawagoe; give each traveler the lodging/contact card. If a phone fails, use the paper copy and ask station staff or police for help.','לקבוע מקום מפגש אם נפרדים, במיוחד בקוואגואה; לתת לכל נוסע כרטיס לינה/קשר. אם טלפון נכשל, להשתמש בעותק הנייר ולבקש עזרה מצוות תחנה או משטרה.')],links:[[B('JNTO emergency help','עזרה בחירום של JNTO'),'https://www.japan.travel/en/plan/hotline/']]}
 );
 const addTaskStep=(id,en,he,url,label)=>{
@@ -1313,7 +1377,7 @@ const addTaskStep=(id,en,he,url,label)=>{
 addTaskStep('mt-omuro','October hours: 09:00–16:00, last down 16:15. Leave queue and return-driving margin. If wind closes it, choose Tōkai-kan/onsen and record the task reviewed.','שעות אוקטובר: 09:00–16:00, ירידה אחרונה 16:15. להשאיר מרווח לתור ולנסיעה בחזרה. אם נסגר ברוח, לבחור Tōkai-kan/אונסן ולסמן שהמשימה נבדקה.','https://omuroyama.com/hours_fare/','Ōmuro hours');
 addTaskStep('bag-measure','On the Tokaido Shinkansen, total dimensions over 160 cm and up to 250 cm require a baggage-area seat; over 250 cm cannot be carried. If seats are unavailable, choose another departure, forward the bag or repack smaller.','בשינקנסן טוקאידו, סכום מידות מעל 160 ועד 250 ס״מ מחייב מושב עם אזור מזוודות; מעל 250 ס״מ אסור להעלות. אם אין מושבים, לבחור רכבת אחרת, לשלוח או לארוז קטן יותר.','https://global.jr-central.co.jp/en/info/oversized-baggage/','JR Central baggage');
 for(const [id,date] of [['atami-kyoto','14 Sep'],['kyoto-tokyo','18 Sep']]) addTaskStep(id,`Specific seats and oversized-baggage seats open one month before: ${date}, 10:00 JST. Early SmartEX reservations are provisional. Book five during daytime Japan hours: 23:30–05:30 limits a booking to three and has no seat map. If five nearby seats are unavailable, try another departure before accepting a split.`,`מושבים מדויקים ומושבי מזוודות נפתחים חודש לפני: ${date}, בשעה 10:00 ביפן. הזמנה מוקדמת ב-SmartEX זמנית. להזמין חמישה בשעות היום ביפן: 23:30–05:30 מוגבל לשלושה ללא מפת מושבים. אם אין חמישה קרובים, לבדוק רכבת אחרת לפני פיצול.`,'https://smart-ex.jp/en/reservation/useful/accept_time/','SmartEX booking windows');
-addTaskStep('enoshima-aquarium','At current rates, three adults (including Yaara 20), Geffen’s high-school ticket with student ID, and Erel’s school-age ticket total ¥11,500. Recheck categories/prices at purchase; without Geffen’s qualifying ID, budget the adult rate.','במחירים הנוכחיים, שלושה מבוגרים (כולל יערה 20), כרטיס תיכון לגפן עם תעודת תלמיד וכרטיס גיל בית ספר לאראל עולים יחד 11,500¥. לבדוק קטגוריות/מחירים ברכישה; ללא תעודה מתאימה לגפן, לתקצב תעריף מבוגר.');
+addTaskStep('enoshima-aquarium','At current rates, three adults (including Geffen 20), Yaara’s high-school ticket with student ID, and Erel’s school-age ticket total ¥11,500. Recheck categories/prices at purchase; without Yaara’s qualifying ID, budget the adult rate.','במחירים הנוכחיים, שלושה מבוגרים (כולל גפן 20), כרטיס תיכון ליערה עם תעודת תלמיד וכרטיס גיל בית ספר לאראל עולים יחד 11,500¥. לבדוק קטגוריות/מחירים ברכישה; ללא תעודה מתאימה ליערה, לתקצב תעריף מבוגר.');
 
 
 
@@ -1531,9 +1595,30 @@ function markSecret(id) {
   preserveUI(renderSecrets);
 }
 
+let secretFlashTimer;
+function flashSecretReveal(glyph) {
+  const flashEl = $("#secretFlash");
+  if (!flashEl) return;
+  const glyphEl = $("#secretFlashGlyph");
+  if (glyphEl) glyphEl.textContent = glyph || "秘";
+  flashEl.classList.remove("is-active");
+  void flashEl.offsetWidth;
+  flashEl.classList.add("is-active");
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  clearTimeout(secretFlashTimer);
+  secretFlashTimer = setTimeout(() => flashEl.classList.remove("is-active"), reduced ? 300 : 900);
+  if (audioEngine) {
+    const now = audioEngine.ctx.currentTime;
+    audioEngine.hat(now, true);
+    audioEngine.pluck(880, now, 0, true);
+    audioEngine.pluck(1108.73, now + .09, .3);
+  }
+}
+
 async function triggerSecret(id, revealPanel = false) {
   if (revealPanel) openSecrets();
   markSecret(id);
+  flashSecretReveal(secretExperiments.find(item => item.id === id)?.icon);
   let result = "";
   if (["train","kaiju","samurai"].includes(id) && $("#secretsDialog").open) $("#secretsDialog").close();
   if (id === "fortune") result = L(fortunes[Math.floor(Math.random() * fortunes.length)]);
@@ -1553,11 +1638,18 @@ async function triggerSecret(id, revealPanel = false) {
 }
 
 function renderSideQuests() {
+  const addedCount = sideQuests.filter(item => state.addedExtras[item.id]).length;
+  const counter = $("#extrasCounter");
+  if (counter) counter.textContent = addedCount
+    ? (state.lang === "he" ? `${addedCount} נוספו לתכנון שלכם` : `${addedCount} added to your plan`)
+    : (state.lang === "he" ? "הקישו “הוספה למסלול” על כל רעיון שמתאים" : "Tap “Add to plan” on anything that fits your route");
   $("#sideQuestGrid").innerHTML = sideQuests.map(item => {
     const actions = item.links?.map(link => external(link[1], L(link[0]), "compact")).join("") ||
       (item.secret ? `<button class="ghost-button compact" type="button" data-secret="${item.secret}" data-reveal-panel="true">${L(item.action)} <span aria-hidden="true">→</span></button>` :
       `<button class="ghost-button compact" type="button" data-go-planner="true">${L(item.action)} <span aria-hidden="true">→</span></button>`);
-    return `<article class="side-quest-card"><span class="side-quest-icon" aria-hidden="true">${item.icon}</span><div><p class="eyebrow">${L(item.kicker)}</p><h4>${L(item.title)}</h4><p>${L(item.text)}</p><div class="card-actions">${actions}</div></div></article>`;
+    const added = Boolean(state.addedExtras[item.id]);
+    const addLabel = added ? (state.lang === "he" ? "נוסף" : "Added") : (state.lang === "he" ? "הוספה למסלול" : "Add to plan");
+    return `<article class="side-quest-card ${added ? "is-added" : ""}"><span class="side-quest-icon" aria-hidden="true">${item.icon}</span><div><p class="eyebrow">${L(item.kicker)}</p><h4>${L(item.title)}</h4><p>${L(item.text)}</p><div class="card-actions">${actions}<button class="add-toggle compact ${added ? "is-added" : ""}" type="button" data-add-extra="${item.id}" aria-pressed="${added}"><span aria-hidden="true">${added ? "✓" : "+"}</span> ${addLabel}</button></div></div></article>`;
   }).join("");
 }
 
@@ -1592,6 +1684,7 @@ function renderStaticText() {
   $("#secretsToggle").setAttribute("aria-label", L(T.openSecrets));
   $("#languageToggle").setAttribute("aria-label", state.lang === "en" ? "Switch to Hebrew" : "מעבר לאנגלית");
   document.body.classList.toggle("retro-mode", Boolean(state.retro));
+  $$("#soundModeSwitch [data-sound-mode]").forEach(btn => btn.setAttribute("aria-pressed", String(btn.dataset.soundMode === state.soundMode)));
 }
 
 function renderNav() {
@@ -2025,6 +2118,10 @@ function createAudioEngine() {
   const rain = ctx.createBufferSource();
   rain.buffer = buffer; rain.loop = true; rain.connect(filter); filter.connect(rainGain); rainGain.connect(master); rain.start();
 
+  const noiseBuffer = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate);
+  const noiseData = noiseBuffer.getChannelData(0);
+  for (let i = 0; i < noiseData.length; i++) noiseData[i] = Math.random() * 2 - 1;
+
   const droneFilter = ctx.createBiquadFilter();
   const droneGain = ctx.createGain();
   droneFilter.type = "lowpass";
@@ -2041,8 +2138,10 @@ function createAudioEngine() {
     drone.start();
   });
 
-  const engine = { ctx, master, musicBus, playing:false, timer:null };
-  engine.pluck = (frequency, when, panValue = 0) => {
+  const engine = { ctx, master, musicBus, reverbGain, rainGain, playing:false, timer:null };
+  const ZEN_SCALE = [220, 233.08, 293.66, 329.63, 349.23, 440, 466.16];
+  const TRAP_SCALE = [220, 246.94, 293.66, 329.63, 369.99, 440];
+  engine.pluck = (frequency, when, panValue = 0, bend = false) => {
     const osc = ctx.createOscillator();
     const harmonic = ctx.createOscillator();
     const tone = ctx.createBiquadFilter();
@@ -2050,8 +2149,15 @@ function createAudioEngine() {
     const pan = ctx.createStereoPanner ? ctx.createStereoPanner() : null;
     osc.type = "triangle";
     harmonic.type = "sine";
-    osc.frequency.value = frequency;
-    harmonic.frequency.value = frequency * 2.01;
+    if (bend) {
+      osc.frequency.setValueAtTime(frequency * 0.944, when);
+      osc.frequency.exponentialRampToValueAtTime(frequency, when + .1);
+      harmonic.frequency.setValueAtTime(frequency * 2.01 * 0.944, when);
+      harmonic.frequency.exponentialRampToValueAtTime(frequency * 2.01, when + .1);
+    } else {
+      osc.frequency.value = frequency;
+      harmonic.frequency.value = frequency * 2.01;
+    }
     tone.type = "lowpass";
     tone.frequency.setValueAtTime(2400, when);
     tone.frequency.exponentialRampToValueAtTime(650, when + 1.8);
@@ -2100,22 +2206,100 @@ function createAudioEngine() {
       osc.start(now + index * .36); osc.stop(now + index * .36 + 2.8);
     });
   };
-  engine.schedule = () => {
-    clearTimeout(engine.timer);
-    if (!engine.playing) return;
+  engine.kick = (when) => {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(150, when);
+    osc.frequency.exponentialRampToValueAtTime(42, when + .13);
+    gain.gain.setValueAtTime(0.0001, when);
+    gain.gain.exponentialRampToValueAtTime(0.5, when + .006);
+    gain.gain.exponentialRampToValueAtTime(0.0001, when + .32);
+    osc.connect(gain); gain.connect(musicBus);
+    osc.start(when); osc.stop(when + .34);
+  };
+  engine.hat = (when, open = false) => {
+    const src = ctx.createBufferSource();
+    src.buffer = noiseBuffer;
+    const hp = ctx.createBiquadFilter();
+    hp.type = "highpass"; hp.frequency.value = 7000;
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(0.0001, when);
+    gain.gain.exponentialRampToValueAtTime(open ? 0.05 : 0.032, when + .003);
+    gain.gain.exponentialRampToValueAtTime(0.0001, when + (open ? .22 : .045));
+    src.connect(hp); hp.connect(gain); gain.connect(musicBus);
+    src.start(when); src.stop(when + (open ? .24 : .06));
+  };
+  engine.clap = (when) => {
+    [0, .012, .024].forEach(offset => {
+      const src = ctx.createBufferSource();
+      src.buffer = noiseBuffer;
+      const bp = ctx.createBiquadFilter();
+      bp.type = "bandpass"; bp.frequency.value = 1500; bp.Q.value = 1.1;
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.0001, when + offset);
+      gain.gain.exponentialRampToValueAtTime(0.06, when + offset + .004);
+      gain.gain.exponentialRampToValueAtTime(0.0001, when + offset + .12);
+      src.connect(bp); bp.connect(gain); gain.connect(musicBus);
+      src.start(when + offset); src.stop(when + offset + .14);
+    });
+  };
+  engine.vinyl = (when, duration) => {
+    const src = ctx.createBufferSource();
+    src.buffer = noiseBuffer; src.loop = true;
+    const bp = ctx.createBiquadFilter();
+    bp.type = "bandpass"; bp.frequency.value = 3200; bp.Q.value = .6;
+    const gain = ctx.createGain();
+    gain.gain.value = 0.006;
+    src.connect(bp); bp.connect(gain); gain.connect(master);
+    src.start(when); src.stop(when + duration);
+  };
+  engine.playZenPhrase = () => {
     engine.timer = setTimeout(() => {
       const now = ctx.currentTime + .06;
-      const scale = [220,246.94,293.66,329.63,392,440,493.88];
-      const root = Math.floor(Math.random() * 4);
+      const root = Math.floor(Math.random() * 3);
       const patternLength = 2 + Math.floor(Math.random() * 4);
       for (let index = 0; index < patternLength; index++) {
-        const note = scale[(root + [0,2,1,4,3][index]) % scale.length];
-        engine.pluck(note, now + index * (.48 + Math.random() * .28), -0.65 + Math.random() * 1.3);
+        const note = ZEN_SCALE[(root + [0,3,1,4,2][index % 5]) % ZEN_SCALE.length];
+        engine.pluck(note, now + index * (.5 + Math.random() * .3), -0.65 + Math.random() * 1.3, Math.random() > .55);
       }
-      if (Math.random() > .52) engine.breath(scale[root] / 2, now + 1.1);
+      if (Math.random() > .52) engine.breath(ZEN_SCALE[root] / 2, now + 1.1);
       if (Math.random() > .7) engine.chime();
       engine.schedule();
     }, 11000 + Math.random() * 17000);
+  };
+  engine.playTrapBar = () => {
+    const now = ctx.currentTime + .05;
+    const step = 0.15;
+    for (let i = 0; i < 16; i++) {
+      const t = now + i * step;
+      if (i >= 13 && Math.random() > .45) { engine.hat(t, false); engine.hat(t + step / 2, false); }
+      else if (Math.random() > .12) engine.hat(t, i === 7 && Math.random() > .65);
+    }
+    engine.kick(now);
+    if (Math.random() > .4) engine.kick(now + step * 10);
+    engine.clap(now + step * 4);
+    engine.clap(now + step * 12);
+    const rootIndex = Math.random() > .5 ? 0 : 1;
+    const sub = ctx.createOscillator();
+    const subGain = ctx.createGain();
+    sub.type = "sine"; sub.frequency.value = TRAP_SCALE[rootIndex] / 4;
+    subGain.gain.setValueAtTime(0.0001, now);
+    subGain.gain.exponentialRampToValueAtTime(0.24, now + .02);
+    subGain.gain.exponentialRampToValueAtTime(0.0001, now + step * 7);
+    sub.connect(subGain); subGain.connect(musicBus);
+    sub.start(now); sub.stop(now + step * 7 + .05);
+    [0,3,6,9,11,14].forEach((i, idx) => {
+      if (Math.random() > .3) engine.pluck(TRAP_SCALE[(idx + rootIndex + 2) % TRAP_SCALE.length], now + i * step, -0.5 + Math.random(), idx % 2 === 0);
+    });
+    engine.vinyl(now, step * 16);
+    engine.timer = setTimeout(() => engine.schedule(), step * 16 * 1000);
+  };
+  engine.schedule = () => {
+    clearTimeout(engine.timer);
+    if (!engine.playing) return;
+    if (state.soundMode === "trap") engine.playTrapBar();
+    else engine.playZenPhrase();
   };
   return engine;
 }
@@ -2139,6 +2323,22 @@ async function toggleAudio() {
   showToast(L(audioEngine.playing ? T.soundOn : T.soundOff));
 }
 
+function setSoundMode(mode) {
+  if (state.soundMode === mode) return;
+  state.soundMode = mode;
+  persist();
+  $$("#soundModeSwitch [data-sound-mode]").forEach(btn => btn.setAttribute("aria-pressed", String(btn.dataset.soundMode === mode)));
+  if (audioEngine) {
+    const now = audioEngine.ctx.currentTime;
+    audioEngine.reverbGain.gain.linearRampToValueAtTime(mode === "trap" ? 0.07 : 0.16, now + 1.2);
+    audioEngine.rainGain.gain.linearRampToValueAtTime(mode === "trap" ? 0.03 : 0.1, now + 1.2);
+    if (audioEngine.playing) { clearTimeout(audioEngine.timer); audioEngine.schedule(); }
+  }
+  showToast(state.lang === "he"
+    ? (mode === "trap" ? "מצב סאונד: טראפ לילי" : "מצב סאונד: קוטו זן")
+    : (mode === "trap" ? "Sound mode: Night trap" : "Sound mode: Zen koto"));
+}
+
 document.addEventListener("click", event => {
   const viewButton = event.target.closest("[data-view-target]");
   if (viewButton) { showView(viewButton.dataset.viewTarget, true); return; }
@@ -2155,6 +2355,18 @@ document.addEventListener("click", event => {
 
   const segmentButton = event.target.closest("[data-segment]");
   if (segmentButton) { currentSegment = segmentButton.dataset.segment; preserveUI(() => { renderSegments(); renderTimeline(); }); return; }
+
+  const addExtraButton = event.target.closest("[data-add-extra]");
+  if (addExtraButton) {
+    event.preventDefault(); event.stopPropagation();
+    const id = addExtraButton.dataset.addExtra;
+    state.addedExtras[id] = !state.addedExtras[id]; persist();
+    preserveUI(renderSideQuests);
+    showToast(state.addedExtras[id]
+      ? (state.lang === "he" ? "נוסף לתכנון שלכם" : "Added to your plan")
+      : (state.lang === "he" ? "הוסר מהתכנון" : "Removed from your plan"));
+    return;
+  }
 
   const favoriteButton = event.target.closest("[data-favorite]");
   if (favoriteButton) {
@@ -2247,6 +2459,7 @@ $("#soundToggle").addEventListener("click", () => {
 });
 $("#audioPlay").addEventListener("click", toggleAudio);
 $("#stationChime").addEventListener("click", () => triggerSecret("chime"));
+$$("#soundModeSwitch [data-sound-mode]").forEach(btn => btn.addEventListener("click", () => setSoundMode(btn.dataset.soundMode)));
 $("#volume").addEventListener("input", event => {
   state.volume = Number(event.target.value); persist();
   if (audioEngine?.playing) audioEngine.master.gain.setTargetAtTime(state.volume, audioEngine.ctx.currentTime, .08);
@@ -2265,6 +2478,7 @@ $("#monogram").addEventListener("click", () => {
   if (monogramClicks >= 5) {
     monogramClicks = 0;
     markSecret("train");
+    flashSecretReveal("新");
     runTrain();
     showToast(state.lang === "he" ? "מצאתם את הרכבת הסודית" : "You found the secret train");
   }
@@ -2278,6 +2492,7 @@ document.addEventListener("keydown", event => {
   if (konamiIndex === konami.length) {
     konamiIndex = 0;
     markSecret("kaiju");
+    flashSecretReveal("怪");
     runKaiju();
     showToast(state.lang === "he" ? "קוד קאיג׳ו הופעל" : "Kaiju code activated");
   }

@@ -1,12 +1,13 @@
-const CACHE = 'japan-2026-v2.18.0';
+const CACHE = 'japan-2026-v2.19.0';
 const PREFIX = 'japan-2026-v';
 const APP_SHELL = [
  './', './index.html',
- './assets/family-icon.jpeg?v=2.18.0',
- './japan-2026-app-v2.html', './japan-2026-v2.css?v=2.18.0', './japan-2026-v2.js?v=2.18.0', './access-gate.js?v=2.18.0', './manifest.json',
+ './assets/family-icon.jpeg?v=2.19.0',
+ './japan-2026-app-v2.html', './japan-2026-v2.css?v=2.19.0', './japan-2026-v2.js?v=2.19.0', './access-gate.js?v=2.19.0', './manifest.json',
  './assets/app-icon.svg', './assets/app-icon-192.png', './assets/app-icon-512.png', './assets/apple-touch-icon.png',
  './assets/jogasaki-coast.webp', './assets/sagano-train.webp', './assets/kawagoe-festival.webp',
- './assets/japan-secrets-banner.webp', './assets/tanuki-omikuji.webp', './assets/japan-pop-hero-v3.webp'
+ './assets/japan-secrets-banner.webp', './assets/tanuki-omikuji.webp', './assets/japan-pop-hero-v3.webp',
+ './assets/who-family.webp', './assets/who-gilad.webp', './assets/who-ayelet.webp', './assets/who-geffen.webp', './assets/who-yaara.webp', './assets/who-erel.webp'
 ];
 self.addEventListener('install', event => {
  event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(APP_SHELL)).then(() => self.skipWaiting()));

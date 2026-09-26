@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#17264b">
-  <meta name="description" content="Private bilingual control center for the Horn family Japan trip, 29 September to 20 October 2026.">
+  <meta name="description" content="Private bilingual control center for the Horn family Japan trip, 29 September to 21 October 2026.">
   <title>Japan 2026 · Horn Family Trip Control Center</title>
   <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="assets/family-icon.jpeg?v=2.18.0" type="image/jpeg">
-  <link rel="stylesheet" href="japan-2026-v2.css?v=2.18.0">
+  <link rel="icon" href="assets/family-icon.jpeg?v=2.19.0" type="image/jpeg">
+  <link rel="stylesheet" href="japan-2026-v2.css?v=2.19.0">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 </head>
 <body>
@@ -37,6 +37,7 @@
         <p data-i18n="appSubtitle">Gilad solo · then the Horn family of five</p>
       </div>
       <div class="header-actions">
+        <button class="icon-button me-button" id="meButton" type="button" data-who-open="true"><img id="meFace" alt="" width="28" height="28" hidden><span id="meMark" aria-hidden="true">誰</span><span class="button-label" id="meName">Who?</span></button>
         <button class="icon-button" id="accessLock" type="button"><span aria-hidden="true">▣</span><span class="lock-en">Lock</span><span class="lock-he" lang="he">נעילה</span></button>
         <button class="icon-button secrets-button" id="secretsToggle" type="button" aria-haspopup="dialog" aria-controls="secretsDialog">
           <span class="secret-mark" aria-hidden="true">秘</span><span class="button-label" data-i18n="secrets">Secrets</span><span class="secret-badge" id="secretBadge">0/7</span>
@@ -46,6 +47,9 @@
         </button>
         <button class="icon-button" id="soundToggle" type="button" aria-label="Open soundscape controls" aria-expanded="false">
           <span aria-hidden="true">♫</span><span class="button-label" data-i18n="sound">Soundscape</span>
+        </button>
+        <button class="icon-button" id="themeToggle" type="button">
+          <span aria-hidden="true">◐</span><span class="button-label">Theme</span>
         </button>
       </div>
     </div>
@@ -120,6 +124,7 @@
         </section>
 
         <div class="segment-tabs" id="segmentTabs" role="group" aria-label="Trip segments"></div>
+        <div class="tag-filters" id="tagFilters" role="toolbar" aria-label="Filter options"></div>
         <div class="legend-row" id="legendRow"></div>
         <div class="timeline" id="timeline"></div>
       </section>
@@ -140,7 +145,7 @@
         <div class="card-grid three-column" id="flightsGrid"></div>
         <div id="airportReunion"></div>
         <div id="railBookingDesk"></div>
-        <div id="izuTransportDecision"></div>
+        <div id="carDays"></div>
         <div class="section-label"><span data-i18n="railAndRoad">Rail & road</span></div>
         <div class="transit-list" id="transitList"></div>
       </section>
@@ -189,7 +194,52 @@
     </main>
   </div>
 
+  <div class="plan-dock" id="planDock"></div>
   <nav class="mobile-nav" id="mobileNav" aria-label="Primary"></nav>
+
+  <dialog class="plan-dialog" id="planDialog" aria-labelledby="planTitle">
+    <div class="plan-shell">
+      <button class="dialog-close" id="planClose" type="button" aria-label="Close">×</button>
+      <p class="eyebrow">選 · PLAN</p>
+      <h2 id="planTitle">Your plan</h2>
+      <p class="plan-summary" id="planSummary"></p>
+      <div class="plan-actions">
+        <button class="primary-button compact" id="planCopy" type="button">Copy plan as text</button>
+        <button class="ghost-button compact" id="planShare" type="button">Share</button>
+        <button class="ghost-button compact" id="planPrint" type="button">Print</button>
+        <button class="ghost-button compact" id="planWho" type="button">Switch person</button>
+      </div>
+      <div class="plan-body" id="planBody"></div>
+    </div>
+  </dialog>
+
+  <dialog class="who-dialog" id="whoDialog" aria-labelledby="whoTitle">
+    <div class="who-shell">
+      <button class="dialog-close" id="whoClose" type="button" aria-label="Close · סגירה" hidden>×</button>
+      <p class="eyebrow">誰ですか · WHO · מי</p>
+      <h2 id="whoTitle"><span lang="he" dir="rtl">מי אתם? לחצו על עצמכם בתמונה</span><span lang="en" dir="ltr">Who are you? Tap yourself in the picture</span></h2>
+      <div class="who-photo" id="whoPhoto">
+        <img class="who-art" src="assets/who-family.webp" alt="The Horn family in an onsen under Mount Fuji · משפחת הורן באונסן מול הר פוג׳י" width="840" height="838">
+        <div class="who-spots" id="whoSpots"></div>
+      </div>
+      <p class="who-hello" id="whoHello" aria-live="polite"></p>
+      <p class="who-note"><span lang="he" dir="rtl">נשמר בטלפון הזה. אפשר להחליף בכל רגע מהכפתור למעלה.</span> <span lang="en" dir="ltr">Saved on this phone. Switch any time from the button at the top.</span></p>
+    </div>
+  </dialog>
+
+  <dialog class="code-dialog" id="codeDialog" aria-labelledby="codeTitle">
+    <form class="code-shell" id="codeForm">
+      <img class="code-face" src="assets/who-gilad.webp" alt="" width="72" height="72">
+      <h2 id="codeTitle">Gilad’s code</h2>
+      <p id="codeIntro"></p>
+      <input id="codeInput" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="off" dir="ltr" aria-describedby="codeError">
+      <p class="code-error" id="codeError" role="alert"></p>
+      <div class="code-actions">
+        <button class="primary-button compact" id="codeSubmit" type="submit">Unlock</button>
+        <button class="ghost-button compact" id="codeCancel" type="button">Cancel</button>
+      </div>
+    </form>
+  </dialog>
 
   <dialog class="food-dialog" id="foodDialog" aria-labelledby="foodDialogLabel">
     <form method="dialog" class="dialog-shell">
@@ -234,6 +284,7 @@
   <div class="kaiju" id="kaiju" aria-hidden="true">ゴ</div>
   <div class="samurai-mission" id="samuraiMission" role="status" aria-live="polite" aria-hidden="true"><span aria-hidden="true">侍</span><strong data-i18n="samuraiMission">SAMURAI FOCUS · Protect the itinerary. Defeat one checklist item.</strong></div>
   </div>
-  <script src="access-gate.js?v=2.18.0" defer></script>
+  <div class="plan-print-area" id="planPrintArea"></div>
+  <script src="access-gate.js?v=2.19.0" defer></script>
 </body>
 </html>

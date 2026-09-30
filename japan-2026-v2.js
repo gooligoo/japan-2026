@@ -337,17 +337,24 @@ const days = [
     links: [[B("Moto-Yoyogi", "מוטו־יויוגי"),MAP("Motoyoyogicho Shibuya Tokyo")],[B("Yoyogi cycling center", "מרכז האופניים יויוגי"),MAP("Yoyogi Park Cycling Center")]]
   },
   {
-    id: "oct01", date: "2026-10-01", segment: "solo", stay: "tokyu", icon: "💧", pace: "moderate",
-    title: B("Water systems + west Tokyo memories", "מערכות מים וזיכרונות מערב טוקיו"),
-    subtitle: B("A grounded professional day; no invented ASIJ event", "יום מקצועי מבוסס; בלי אירוע ASIJ מומצא"),
-    tags: [["unverified","red"], ["moderate","amber"]],
+    id: "oct01", date: "2026-10-01", segment: "solo", stay: "tokyu", icon: "🛍", pace: "moderate",
+    title: B("Shinjuku: garden, shopping and Pit Inn", "שינג׳וקו: גן, קניות ופיט אין"),
+    subtitle: B("Shinjuku Gyoen · East Exit shopping · Shibusa Shirazu at 19:30", "שינג׳וקו גיואן · קניות ביציאה המזרחית · שיבוסה שיראזו ב-19:30"),
+    tags: [["moderate","amber"]],
     schedule: [
-      ["09:30","💧",B("Tokyo Waterworks Historical Museum", "המוזיאון ההיסטורי של מערכת המים בטוקיו"),B("An unusually good fit for Gilad: Edo-era supply, modern purification, and urban infrastructure.", "התאמה חזקה לגלעד: אספקת מים מתקופת אדו, טיהור מודרני ותשתיות עירוניות.")],
-      ["12:30","🚃",B("Kichijoji and Inokashira Park", "קיצ׳יג׳וג׳י ופארק אינוקשירה"),B("A calm westward loop with lunch and memory-space before any Chofu contact.", "לולאה רגועה מערבה עם ארוחה ומרחב לזיכרונות לפני כל קשר לצ׳ופו.")],
-      ["15:00","🎓",B("ASIJ only if invited / confirmed", "ASIJ רק אם יש הזמנה / אישור"),B("There is no public confirmation for a reunion or campus event on this date. Contact alumni staff first.", "אין אישור ציבורי למפגש בוגרים או לאירוע בקמפוס בתאריך הזה. קודם לפנות לצוות הבוגרים.")]
+      ["09:00","🌳",B("Shinjuku Gyoen", "שינג׳וקו גיואן"),B("In by the Sendagaya Gate, Japanese garden and Kyu-Goryotei, matcha at Rakuu-tei, out by the Shinjuku Gate. ¥500. Crowd 1/4.", "כניסה בשער סנדגאיה, הגן היפני וקיו־גוריוטיי, מאצ׳ה בבית התה רקואו־טיי, יציאה בשער שינג׳וקו. 500 ין. עומס 1/4.")],
+      ["10:30","👓",B("JINS Flagship, then Sekaido", "JINS פלאגשיפ ואז סקאידו"),B("Order the glasses first so they are ready later; compare with Zoff before committing. Sekaido next door: five floors of art supplies and washi.", "להזמין משקפיים קודם כדי שיהיו מוכנים אחר כך; להשוות עם Zoff לפני שמתחייבים. סקאידו ליד: חמש קומות של ציוד אמנות ונייר וואשי.")],
+      ["10:50","🍡",B("Isetan food hall (B1)", "אולם האוכל של איסטן (B1)"),B("Wagashi, pickles and perfect fruit. Tax-free counter upstairs. Crowd 3/4.", "וגאשי, חמוצים ופירות מושלמים. דלפק פטור ממס בקומות העליונות. עומס 3/4.")],
+      ["11:15","🐟",B("Lunch: Kappo Nakajima or Tsunahachi", "צהריים: קאפו נקג׳ימה או צונהאצ׳י"),B("Nakajima: Michelin-starred kappo, sardine-only lunch around ¥1,500, queue before 11:30, closed Sundays. Tsunahachi: tempura since 1924, ask for no shrimp (ebi nashi).", "נקג׳ימה: קאפו עם כוכב מישלן, ארוחת סרדינים בלבד בכ-1,500 ין, להגיע לתור לפני 11:30, סגור בראשון. צונהאצ׳י: טמפורה מ-1924, לבקש בלי שרימפס (אֶבִּי נאשי).")],
+      ["12:30","🏮",B("Beams Japan, then the East Exit list", "בימס ג׳פן ואז הרשימה ביציאה המזרחית"),B("Beams Japan: everything made in Japan. Then Zoff (Marui), Uniqlo, Alpen and Yodobashi, all within five minutes. Passport for tax-free.", "בימס ג׳פן: הכול תוצרת יפן. אחר כך Zoff (מרואי), יוניקלו, אלפן ויודובאשי, כולם בטווח חמש דקות. דרכון לפטור ממס.")],
+      ["15:30","⛩",B("Hanazono Shrine, then Don Quijote", "מקדש הנאזונו ואז דון קיחוטה"),B("A quiet Edo-era shrine on the edge of Kabukicho; do it before Don Quijote to reset.", "מקדש שקט מתקופת אדו בקצה קבוקיצ׳ו; לפני דון קיחוטה כדי להתאפס.")],
+      ["16:30","☕",B("Café Aaliya or DUG", "קפה אליה או DUG"),B("Aaliya: old kissaten, famous French toast. DUG: 1967 basement jazz café from Norwegian Wood.", "אליה: קיססטן ותיק עם פרנץ׳ טוסט מפורסם. DUG: בית קפה ג׳אז במרתף מ-1967, מתוך יער נורווגי.")],
+      ["17:15","👟",B("New Balance, NEWoMan (optional)", "ניו באלאנס, NEWoMan (אופציונלי)"),B("Skip if your legs are done.", "לוותר אם הרגליים גמורות.")],
+      ["18:15","🍜",B("Fuunji tsukemen", "צוקמן בפוּאונג׳י"),B("Thick chicken-and-fish dipping broth; expect a 15 to 30 minute queue. Or a bento from Isetan.", "ציר טבילה סמיך של עוף ודגים; תור של 15 עד 30 דקות. או בנטו מאיסטן.")],
+      ["19:30","🎷",B("Shinjuku Pit Inn: Shibusa Shirazu Orchestra", "שינג׳וקו פיט אין: שיבוסה שיראזו אורקסטרה"),B("A huge free-jazz big band with dancers. ¥4,400 including one drink.", "ביג בנד פרי־ג׳אז ענק עם רקדנים. 4,400 ין כולל משקה אחד.")]
     ],
-    callout: ["warning",B("Do not arrive at the ASIJ campus speculatively. Public sources confirm the alumni program, not a 2026 event time or visitor access.", "לא להגיע לקמפוס ASIJ ללא תיאום. המקורות הציבוריים מאשרים פעילות בוגרים, אך לא שעה לאירוע ב-2026 או כניסת מבקרים.")],
-    links: [[B("Waterworks museum", "מוזיאון המים"),MAP("Tokyo Waterworks Historical Museum")],[B("ASIJ alumni", "בוגרי ASIJ"),"https://www.asij.ac.jp/alumni/our-alumni"],[B("Inokashira Park", "פארק אינוקשירה"),MAP("Inokashira Park")]]
+    callout: ["info",B("1 Oct is Tokyo Citizens' Day: metropolitan gardens are free (Rikugien, Hamarikyu, Kiyosumi and others). Shinjuku Gyoen is national, so it is not free.", "1 באוקטובר הוא יום תושבי טוקיו: הגנים העירוניים בחינם (ריקוגיאן, המאריקיו, קיוסומי ועוד). שינג׳וקו גיואן לאומי, ולכן לא בחינם.")],
+    links: [[B("Shinjuku Gyoen", "שינג׳וקו גיואן"),MAP("Shinjuku Gyoen Sendagaya Gate")],[B("Kappo Nakajima", "קאפו נקג׳ימה"),MAP("Shinjuku Nakajima kappo")],[B("Beams Japan", "בימס ג׳פן"),MAP("BEAMS JAPAN Shinjuku")],[B("Hanazono Shrine", "מקדש הנאזונו"),MAP("Hanazono Shrine Shinjuku")],[B("Pit Inn schedule", "לוח ההופעות של פיט אין"),"https://pit-inn.com/schedule/"]]
   },
   {
     id: "oct02", date: "2026-10-02", segment: "solo", stay: "tokyu", icon: "◼", pace: "moderate",
@@ -401,7 +408,7 @@ const days = [
       { id:"oct05-motoyoyogi", s:SL.morning, t:B("Moto-Yoyogi and Yoyogi-Hachiman walk", "הליכה במוטו־יויוגי וביויוגי־האצ׳ימן"), d:B("Your childhood streets around Royal Yoyogi Gardens, then the quiet Yoyogi-Hachiman shrine.", "רחובות הילדות שלך סביב Royal Yoyogi Gardens, ואחר כך מקדש יויוגי־האצ׳ימן השקט."), c:1, y:0, tags:["culture"], q:"Yoyogi Hachimangu Shrine" },
       { id:"oct05-koenji", s:SL.afternoon, t:B("Koenji vintage scouting", "סיור וינטג׳ בקואנג׳י"), d:B("One stop from Nakano; scout the best vintage shops before the girls arrive.", "תחנה אחת מנקאנו; לאתר את חנויות הווינטג׳ הטובות לפני שהבנות מגיעות."), c:2, y:0, tags:["shop"], q:"Koenji vintage shops" },
       { id:"oct05-stock", s:SL.afternoon, t:B("Stock the apartment", "למלא את הדירה"), d:B("Supermarket run near Nakano-shimbashi: breakfast, snacks and water for five.", "סיבוב בסופר ליד נקאנו־שימבאשי: ארוחות בוקר, חטיפים ומים לחמישה."), c:1, y:8000, w:B("groceries","קניות מזון"), tags:["food"], q:"supermarket near Nakano-shimbashi Station" },
-      { id:"oct05-pitinn", s:SL.evening, t:B("Shinjuku Pit Inn", "שינג׳וקו פיט אין"), d:B("Check the evening set list; walk-in jazz in the basement club.", "לבדוק את ההופעה של הערב; ג׳אז בלי הזמנה במועדון המרתף."), c:2, y:4000, w:B("you","אתה"), tags:["night","culture","rain"], q:"Shinjuku Pit Inn" },
+      { id:"oct05-pitinn", s:SL.evening, t:B("Shinjuku Pit Inn", "שינג׳וקו פיט אין"), d:B("Hamasaki Wataru meets Matsumoto Akane trio \"BigCatch\", 19:30, ¥3,850 with one drink.", "המאסאקי וואטארו פוגש את הטריו של מאצומוטו אקאנה \"BigCatch\", 19:30, 3,850 ין כולל משקה."), c:2, y:3850, w:B("you","אתה"), tags:["night","culture","rain"], q:"Shinjuku Pit Inn" },
       { id:"oct05-omoide", s:SL.evening, t:B("Omoide Yokocho yakitori", "יאקיטורי באומוידה יוקוצ׳ו"), d:B("Tiny grill stalls by Shinjuku station; most do vegetable skewers too.", "דוכני גריל זעירים ליד תחנת שינג׳וקו; ברובם יש גם שיפודי ירקות."), c:3, y:3000, w:B("you","אתה"), tags:["food","night"], q:"Omoide Yokocho" }
     ]
   },
@@ -692,7 +699,7 @@ const STAY_Q = {
 const dayRoutes = {
   sep29: ["Narita Airport Terminal 1", STAY_Q.tokyu, ["Shibuya Station"], "transit"],
   sep30: ["39-1 Motoyoyogicho Tokyo", "Yoyogi-Uehara Station", ["Yoyogi Park Cycling Center"], "walking"],
-  oct01: ["Tokyo Waterworks Historical Museum", "Inokashira Park", [], "transit"],
+  oct01: ["Shinjuku Gyoen Sendagaya Gate", "Shinjuku Pit Inn", ["JINS Flagship Store Shinjuku", "Isetan Shinjuku", "BEAMS JAPAN Shinjuku", "Yodobashi Camera Multimedia Shinjuku East", "Hanazono Shrine Shinjuku", "Don Quijote Shinjuku Kabukicho"], "walking"],
   oct02: ["Nezu Museum", "Cat Street Harajuku", [], "walking"],
   oct03: ["21_21 Design Sight", "Meiji Jingu Gaien", [], "walking"],
   oct04: ["Meiji Jingu", "Daikanyama T-Site", ["Yoyogi Park Harajuku Entrance"], "transit"],
@@ -715,7 +722,7 @@ const dayRoutes = {
 };
 
 const photoQueries = {
-  sep29:"Narita Airport Terminal 1 Japan", sep30:"Moto Yoyogi Yoyogi Park Tokyo", oct01:"Tokyo Waterworks Historical Museum Inokashira Park", oct02:"Aoyama Nezu Museum architecture Harajuku", oct03:"21_21 Design Sight Meiji Jingu Gaien", oct04:"Meiji Jingu Yoyogi Park Sunday",
+  sep29:"Narita Airport Terminal 1 Japan", sep30:"Moto Yoyogi Yoyogi Park Tokyo", oct01:"Shinjuku Gyoen Rakuutei Hanazono Shrine", oct02:"Aoyama Nezu Museum architecture Harajuku", oct03:"21_21 Design Sight Meiji Jingu Gaien", oct04:"Meiji Jingu Yoyogi Park Sunday",
   oct05:"Koenji vintage Nakano Tokyo", oct06:"Narita Airport Terminal 1 arrivals", oct07:"Meiji Jingu Takeshita Street Shibuya Sky", oct08:"teamLab Planets Tokyo Toyosu", oct09:"Tokyo DisneySea Kamakura Great Buddha", oct10:"Senso-ji Akihabara Shimokitazawa",
   oct11:"Kawaguchiko Mount Fuji Aokigahara", oct12:"Oishi Park Mount Fuji kochia Hakone", oct13:"Owakudani Lake Ashi Sengokuhara susuki", oct14:"Mishima Skywalk Fushimi Inari dusk", oct15:"Arashiyama bamboo Kinkaku-ji Sagano", oct16:"Kurama Kibune Uji Byodoin",
   oct17:"Kiyomizu-dera Sannenzaka Kyoto", oct18:"Kawagoe Festival floats night", oct19:"Tokyo Tower night kaiseki", oct20:"Narita Express Terminal 1", oct21:"Ben Gurion airport"
@@ -1172,6 +1179,11 @@ const delights = [
 ];
 
 const sideQuests = [
+  {id:"todoroki",icon:"🌿",kicker:B("NATURE · SETAGAYA","טבע · סטגאיה"),title:B("Todoroki Valley","עמק טודורוקי"),text:B("The only ravine in Tokyo's 23 wards: a stream, dense forest and a small cliff temple. Reopened 24 Mar 2026 after three years closed. Narrow paths, busy since reopening; go on a weekday morning.","הערוץ היחיד ב-23 הרובעים של טוקיו: נחל, יער סבוך ומקדש קטן על המצוק. נפתח מחדש ב-24 במרץ 2026 אחרי שלוש שנים. שבילים צרים ועמוסים מאז הפתיחה; ללכת בבוקר של יום חול."),links:[[B("Open map","פתיחת מפה"),"https://www.google.com/maps/search/?api=1&query=Todoroki%20Valley"]]},
+  {id:"nature-institute",icon:"🌲",kicker:B("NATURE · MEGURO","טבע · מגורו"),title:B("Institute for Nature Study","המכון לחקר הטבע"),text:B("A near-wild forest in the middle of the city, with a daily visitor cap and very few tourists. Closed Mondays.","יער כמעט פראי באמצע העיר, עם מכסת מבקרים יומית ומעט מאוד תיירים. סגור בימי שני."),links:[[B("Open map","פתיחת מפה"),"https://www.google.com/maps/search/?api=1&query=Institute%20for%20Nature%20Study%20Meguro"]]},
+  {id:"zenpukuji",icon:"🍂",kicker:B("OLD TREE · AZABU","עץ עתיק · אזאבו"),title:B("Zenpukuji ginkgo","עץ הגינקו של זנפוקוג׳י"),text:B("A roughly 750-year-old ginkgo, one of Tokyo's oldest trees, 10 minutes from Roppongi.","גינקו בן כ-750 שנה, מהעצים העתיקים בטוקיו, 10 דקות מרופונגי."),links:[[B("Open map","פתיחת מפה"),"https://www.google.com/maps/search/?api=1&query=Zenpukuji%20Azabu%20ginkgo"]]},
+  {id:"showa-cosmos",icon:"🌼",kicker:B("FLOWERS · TACHIKAWA","פרחים · טצ׳יקאווה"),title:B("Showa Kinen Park cosmos festival","פסטיבל הקוסמוס בפארק שווא קינן"),text:B("Runs to 25 Oct. Yellow cosmos peak now; the Sensation cosmos peak early to mid October, so it could work as a family day.","עד 25 באוקטובר. הקוסמוס הצהוב בשיא עכשיו; קוסמוס Sensation בשיא בתחילת עד אמצע אוקטובר, כך שיכול להתאים ליום משפחתי."),links:[[B("Open map","פתיחת מפה"),"https://www.google.com/maps/search/?api=1&query=Showa%20Kinen%20Park"]]},
+  {id:"shibamata",icon:"🛶",kicker:B("OLD TOKYO · SHIBAMATA","טוקיו הישנה · שיבמאטה"),title:B("Shibamata and the Yagiri ferry","שיבמאטה ומעבורת יאגירי"),text:B("Taishakuten temple's carved wooden panels, a Showa-retro shopping street, and a hand-rowed river ferry. Crowd 1/4.","לוחות העץ המגולפים במקדש טאישקוטן, רחוב קניות בסגנון שווא, ומעבורת נהר בחתירה ידנית. עומס 1/4."),links:[[B("Open map","פתיחת מפה"),"https://www.google.com/maps/search/?api=1&query=Shibamata%20Taishakuten"]]},
   {id:"pagoda",icon:"塔",kicker:B("TEMPLE QUEST","משימת מקדש"),title:B("Pagoda + Shinsengumi history","פגודה + היסטוריית שינסנגומי"),text:B("Takahata-Fudō gives you a five-story pagoda, temple grounds, and a genuine samurai-era connection. Keep it optional: the core itinerary already has plenty of temples.","טקהאטה־פודו מציע פגודה בת חמש קומות, מתחם מקדש וקשר אמיתי לתקופת הסמוראים. להשאיר כאופציה: במסלול הראשי כבר יש הרבה מקדשים."),links:[[B("Official Tokyo guide","המדריך הרשמי של טוקיו"),"https://www.gotokyo.org/en/story/walks-and-tours/edo_hino/index.html"],[B("Open map","פתיחת מפה"),"https://www.google.com/maps/search/?api=1&query=Takahata%20Fudoson%20Tokyo"]]},
   {id:"konbini",icon:"🍙",kicker:B("¥1,000 CHAOS","כאוס ב־¥1,000"),title:B("Konbini snack roulette","רולטת חטיפי קונביני"),text:B("Give one person ¥1,000 and five minutes. They must return with one familiar thing, one mystery thing, and one item selected purely by package design.","נותנים לאדם אחד 1,000 ין וחמש דקות. עליו לחזור עם דבר מוכר, דבר מסתורי ופריט אחד שנבחר רק לפי עיצוב האריזה."),secret:"konbini",action:B("Spin the roulette","סיבוב הרולטה")},
   {id:"stamp",icon:"駅",kicker:B("FREE SOUVENIR","מזכרת חינם"),title:B("Eki-stamp field book","פנקס חותמות תחנה"),text:B("Carry a small blank notebook. Look for 駅スタンプ at major stations and tourist desks; stamp only when the queue is short and the ink pad is friendly.","קחו מחברת קטנה וריקה. חפשו 駅スタンプ בתחנות גדולות ובלשכות תיירות; מחתימים רק כשהתור קצר וכרית הדיו ידידותית."),planner:true,action:B("Open the stamp book","פתיחת ספר החותמות")},

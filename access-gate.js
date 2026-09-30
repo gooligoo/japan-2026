@@ -14,7 +14,7 @@
     submit.disabled = true;
     error.textContent = '';
     const script = document.createElement('script');
-    script.src = 'japan-2026-v2.js?v=2.19.0';
+    script.src = 'japan-2026-v2.js?v=2.19.1';
     script.onload = () => {
       try { sessionStorage.setItem(sessionKey, 'yes'); } catch { /* Unlock still works without storage. */ }
       input.value = '';
